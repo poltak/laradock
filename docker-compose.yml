@@ -89,6 +89,15 @@ services:
             MYSQL_PASSWORD: secret
             MYSQL_ROOT_PASSWORD: root
 
+### MongoDB Container #########################################
+
+    mongodb:
+        build: ./mongodb
+        volumes_from:
+            - data
+        ports:
+            - "27017:27017"
+
 ### Neo4j Container #########################################
 
     neo4j:
