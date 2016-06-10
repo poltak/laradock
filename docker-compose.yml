@@ -14,6 +14,7 @@ services:
             - "9000"
         links:
             - workspace
+        network_mode: bridge
 
 ### Laravel Application Code Container ######################
 
@@ -21,6 +22,7 @@ services:
         build: ./application
         volumes:
             - ../:/var/www/laravel
+        network_mode: bridge
 
 ### Databases Data Container ################################
 
@@ -33,6 +35,7 @@ services:
             - /var/lib/memcached:/var/lib/memcached
             - /var/lib/neo4j:/var/lib/neo4j/data
             - /var/lib/redis:/data
+        network_mode: bridge
 
 ### Nginx Server Container ##################################
 
@@ -47,6 +50,7 @@ services:
             - "443:443"
         links:
             - php-fpm
+        network_mode: bridge
 
 ### MySQL Container #########################################
 
@@ -61,6 +65,7 @@ services:
             MYSQL_USER: homestead
             MYSQL_PASSWORD: secret
             MYSQL_ROOT_PASSWORD: root
+        network_mode: bridge
 
 ### PostgreSQL Container ####################################
 
@@ -74,6 +79,7 @@ services:
             POSTGRES_DB: homestead
             POSTGRES_USER: homestead
             POSTGRES_PASSWORD: secret
+        network_mode: bridge
 
 ### MariaDB Container #######################################
 
@@ -88,6 +94,7 @@ services:
             MYSQL_USER: homestead
             MYSQL_PASSWORD: secret
             MYSQL_ROOT_PASSWORD: root
+        network_mode: bridge
 
 ### MongoDB Container #########################################
 
@@ -97,6 +104,7 @@ services:
             - data
         ports:
             - "27017:27017"
+        network_mode: bridge
 
 ### Neo4j Container #########################################
 
@@ -109,6 +117,7 @@ services:
             - NEO4J_AUTH=homestead:secret
         volumes_from:
             - data
+        network_mode: bridge
 
 ### Redis Container #########################################
 
@@ -118,6 +127,7 @@ services:
             - data
         ports:
             - "6379:6379"
+        network_mode: bridge
 
 ### Memcached Container #####################################
 
@@ -129,6 +139,7 @@ services:
             - "11211:11211"
         links:
             - php-fpm
+        network_mode: bridge
 
 ### Beanstalkd Container ####################################
 
@@ -139,6 +150,7 @@ services:
         privileged: true
         links:
             - php-fpm
+        network_mode: bridge
 
 ### Beanstalkd Console Container ############################
 
@@ -148,6 +160,7 @@ services:
             - "2080:2080"
         links:
             - beanstalkd
+        network_mode: bridge
 
 ### Workspace Utilities Container ###########################
 
@@ -156,5 +169,6 @@ services:
         volumes_from:
             - application
         tty: true
+        network_mode: bridge
 
 ### Add more Containers below ###############################
