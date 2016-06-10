@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y --force-yes \
         php7.0-sqlite3 \
         php7.0-zip \
         php7.0-memcached \
+        php-pear \
         sqlite3 \
         libsqlite3-dev \
         git \
@@ -65,6 +66,10 @@ RUN echo "alias phpunit='./vendor/bin/phpunit'" >> ~/.bashrc
 RUN curl -s http://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/ \
     && echo "alias composer='/usr/local/bin/composer.phar'" >> ~/.bashrc
+
+# Install MongoDB Driver
+RUN pecl install mongodb \
+    && echo "extension=mongodb.so" >> /etc/php/7.0/cli/php.ini
 
 # Source the bash
 RUN . ~/.bashrc
