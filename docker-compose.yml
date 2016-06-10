@@ -29,12 +29,6 @@ services:
     data:
         build: ./data
         volumes:
-            - /var/lib/mysql:/var/lib/mysql
-            - /var/lib/postgres:/var/lib/postgres
-            - /var/lib/mariadb:/var/lib/mariadb
-            - /var/lib/memcached:/var/lib/memcached
-            - /var/lib/neo4j:/var/lib/neo4j/data
-            - /var/lib/redis:/data
             - /var/lib/mongdb/:/data/db
         network_mode: bridge
 
@@ -53,50 +47,6 @@ services:
             - php-fpm
         network_mode: bridge
 
-### MySQL Container #########################################
-
-    mysql:
-        build: ./mysql
-        volumes_from:
-            - data
-        ports:
-            - "3306:3306"
-        environment:
-            MYSQL_DATABASE: homestead
-            MYSQL_USER: homestead
-            MYSQL_PASSWORD: secret
-            MYSQL_ROOT_PASSWORD: root
-        network_mode: bridge
-
-### PostgreSQL Container ####################################
-
-    postgres:
-        build: ./postgres
-        volumes_from:
-            - data
-        ports:
-            - "5432:5432"
-        environment:
-            POSTGRES_DB: homestead
-            POSTGRES_USER: homestead
-            POSTGRES_PASSWORD: secret
-        network_mode: bridge
-
-### MariaDB Container #######################################
-
-    mariadb:
-        build: ./mariadb
-        volumes_from:
-            - data
-        ports:
-            - "3306:3306"
-        environment:
-            MYSQL_DATABASE: homestead
-            MYSQL_USER: homestead
-            MYSQL_PASSWORD: secret
-            MYSQL_ROOT_PASSWORD: root
-        network_mode: bridge
-
 ### MongoDB Container #########################################
 
     mongodb:
@@ -105,62 +55,6 @@ services:
             - data
         ports:
             - "27017:27017"
-        network_mode: bridge
-
-### Neo4j Container #########################################
-
-    neo4j:
-        build: ./neo4j
-        ports:
-            - "7474:7474"
-            - "1337:1337"
-        environment:
-            - NEO4J_AUTH=homestead:secret
-        volumes_from:
-            - data
-        network_mode: bridge
-
-### Redis Container #########################################
-
-    redis:
-        build: ./redis
-        volumes_from:
-            - data
-        ports:
-            - "6379:6379"
-        network_mode: bridge
-
-### Memcached Container #####################################
-
-    memcached:
-        build: ./memcached
-        volumes_from:
-            - data
-        ports:
-            - "11211:11211"
-        links:
-            - php-fpm
-        network_mode: bridge
-
-### Beanstalkd Container ####################################
-
-    beanstalkd:
-        build: ./beanstalkd
-        ports:
-            - "11300:11300"
-        privileged: true
-        links:
-            - php-fpm
-        network_mode: bridge
-
-### Beanstalkd Console Container ############################
-
-    beanstalkd-console:
-        build: ./beanstalkd-console
-        ports:
-            - "2080:2080"
-        links:
-            - beanstalkd
         network_mode: bridge
 
 ### Workspace Utilities Container ###########################
