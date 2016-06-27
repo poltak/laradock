@@ -13,4 +13,5 @@ If you do not need the MongoDB container, if you are using an external DB contai
 
 ## Upstream
 
-[https://github.com/LaraDock/laradock](LaraDock).
+[LaraDock](https://github.com/LaraDock/laradock)
+
