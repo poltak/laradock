@@ -51,8 +51,12 @@ services:
 
     mongodb:
         build: ./mongodb
-        volumes_from:
-            - data
+        container_name: mongodb
+        restart: always
+        volumes:
+            - /var/lib/mongodb/:/data/db
+            - /opt/mongodb/mongodb.conf:/mongodb.conf
+            - /data/configdb
         ports:
             - "27017:27017"
         network_mode: bridge
