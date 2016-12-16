@@ -8,6 +8,7 @@ services:
         build:
             context: ./php-fpm
             dockerfile: Dockerfile-70
+        restart: always
         volumes_from:
             - application
         expose:
@@ -20,6 +21,7 @@ services:
 
     application:
         build: ./application
+        restart: always
         volumes:
             - ../:/var/www/laravel
         network_mode: bridge
@@ -36,6 +38,7 @@ services:
 
     nginx:
         build: ./nginx
+        restart: always
         volumes_from:
             - application
         volumes:
@@ -65,6 +68,7 @@ services:
 
     workspace:
         build: ./workspace
+        restart: always
         volumes_from:
             - application
         tty: true
