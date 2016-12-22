@@ -1,3 +1,6 @@
 [submodule "cms-repo"]
 	path = cms-repo
 	url = git@github.com:romyngo/which-team-admin.git
+[submodule "bet-scraper-repo"]
+	path = bet-scraper-repo
+	url = git@github.com:romyngo/bet-scraper.git
