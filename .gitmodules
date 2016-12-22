@@ -1,0 +1,3 @@
+[submodule "which-team-admin"]
+	path = which-team-admin
+	url = git@github.com:romyngo/which-team-admin.git
