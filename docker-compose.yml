@@ -66,4 +66,30 @@ services:
         tty: true
         network_mode: bridge
 
-### Add more Containers below ###############################
+### tor Container #######################################
+
+  tor-instance:
+    container_name: tor-instance
+    restart: always
+    image: rdsubhas/tor-privoxy-alpine
+    network_mode: bridge
+    ports:
+      - "127.0.1.1:9050:9050"
+      - "127.0.1.1:8118:8118"
+
+### bet-scraper Container #######################################
+
+  bet-scraper:
+    container_name: bet-scraper
+    restart: always
+    build:
+      context: ./bet-scraper
+      dockerfile: Dockerfile
+    volumes:
+      - ../:/bet_scraper
+    network_mode: bridge
+    links:
+      - tor-instance
+      - mongodb
+    environment:
+      - http_proxy=tor-instance:8118

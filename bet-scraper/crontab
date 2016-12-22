@@ -1,0 +1,25 @@
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+HOME=/root
+WHICH_TEAM_MONGO_HOST=mongodb
+WHICH_TEAM_MONGO_PORT=27017
+WHICH_TEAM_MONGO_DB=which-team
+http_proxy='tor-instance:8118'
+
+# Run results updater once an hour, on the hour
+0 * * * * root bash /bet_scraper/scripts/run-results-updater.sh
+
+# Run teamplay fetcher every day at 03:00
+0 3 * * * root bash /bet_scraper/scripts/run-teamplay-fetcher.sh
+
+# Run Scrapy spider once an hour, 20mins passed the hour
+20 * * * * root bash /bet_scraper/scripts/run-match-spider.sh
+
+# Run missing players scraper every day at 04:00
+0 4 * * * root bash /bet_scraper/scripts/run-missing-players-scraper.sh
+
+# Run rankings scraper every week on Sunday midnight
+0 0 * * 0 root bash /bet_scraper/scripts/run-rankings-scraper.sh
+
+# Run historic scraper every week on Sunday 01:00
+0 1 * * 0 root bash /bet_scraper/scripts/run-historical-match-scraper.sh
