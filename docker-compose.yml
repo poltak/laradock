@@ -26,14 +26,6 @@ services:
             - ../:/var/www/laravel
         network_mode: bridge
 
-### Databases Data Container ################################
-
-    data:
-        build: ./data
-        volumes:
-            - /var/lib/mongdb/:/data/db
-        network_mode: bridge
-
 ### Nginx Server Container ##################################
 
     nginx:
