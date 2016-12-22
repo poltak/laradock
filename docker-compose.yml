@@ -23,7 +23,7 @@ services:
         build: ./application
         restart: always
         volumes:
-            - cms-repo/:/var/www/laravel
+            - ./cms-repo/:/var/www/laravel
         network_mode: bridge
 
 ### Nginx Server Container ##################################
@@ -86,7 +86,7 @@ services:
             context: ./bet-scraper
             dockerfile: Dockerfile
         volumes:
-            - bet-scraper-repo/:/bet_scraper
+            - ./bet-scraper-repo/:/bet_scraper
         network_mode: bridge
         links:
             - tor-instance
