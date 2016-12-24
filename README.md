@@ -1,4 +1,8 @@
-# LaraDock Fork
+_Make sure to recursively clone this repo to get the submodules:_
+
+_`git clone --recursive git@github.com:romyngo/laradock.git`_
+
+# WhichTeam Docker Cluster
 
 ## WhichTeam MongoDB image
 
@@ -11,15 +15,35 @@ since it doesn't really belong anywhere else.
 
 ___(You can skip this step if you're just trying to run the containers).___
 
-Run `docker-compose build` within the repo root.
-
+Run `docker-compose build` within the repo root. This can take some time. Note that it may
+crash during bet-scraper image build. This is a common issue on small VPS instances where
+it runs out of memory. Free up some memory and try again.
 
 ## Running
 
 Run `docker-compose up -d` within the repo root to start all containers in order in the background.
 
-If you do not need the MongoDB container, if you are using an external DB container, only run
-`docker-compose up -d nginx`, which will ensure all containers start apart from `mongodb` and `data`.
+Within the container cluster, there are three distinct subclusters:
+
+1. MongoDB cluster:
+    - mongodb container
+2. Web scrapers cluster:
+    - bet-scraper container
+    - tor-instance container
+3. CMS cluster:
+    - laravel application container
+    - nginx container
+    - php-fpm container
+    - laravel workspace container
+
+Clusters 2 and 3 depend on cluster 1, however with 1 running, 2 and 3 can exist independent of each
+other. To just run cluster 3, run:
+
+`docker-compose up -d nginx`
+
+To just run cluster 2, run:
+
+`docker-compose up -d bet-scraper`
 
 ## Setting up running MongoDB container with WhichTeam app
 
@@ -35,7 +59,7 @@ Follow the steps to enable a 1-node replication set, so we can use MongoDB oplog
 3. Open mongo shell in the MongoDB container: `docker exec -it mongodb mongo`
 4. Paste in the following code to start the replication set: `rs.initiate({_id: 'meteor', members: [{ _id: 0, host: '127.0.0.1:27017' }]})`
 
-Now, the MongoDB will be set up permanently and you can `mup deploy` from dev to deploy the
+Now, the MongoDB container will be set up permanently and you can `mup deploy` from dev to deploy the
 docker container holding the WhichTeam App server.
 
 ## Upstream
