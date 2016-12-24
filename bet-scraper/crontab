@@ -19,3 +19,4 @@ HOME=/home/ubuntu
 
 # Run historic scraper every week on Sunday 01:00
 0 1 * * 0 docker exec bet-scraper /bet_scraper/scripts/run-historical-match-scraper.sh >> $HOME/bet-scraper-log
+
