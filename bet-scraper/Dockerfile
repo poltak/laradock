@@ -15,3 +15,5 @@ COPY requirements.txt /bet_scraper
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN pip install -U cffi
+
+RUN (>&2 echo "Make sure to schedule jobs with cron; this container does nothing")
