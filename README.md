@@ -15,7 +15,12 @@ since it doesn't really belong anywhere else.
 
 ___(You can skip this step if you're just trying to run the containers).___
 
-Run `docker-compose build` within the repo root. This can take some time. Note that it may
+Run `docker-compose build` within the repo root. This can take some time. Most
+of the time is spent on initializing and installing of runtime dependencies within
+the images. Note that these will be cached, so subsequent image builds should
+be very fast.
+
+Note that it may
 crash during bet-scraper image build. This is a common issue on small VPS instances where
 it runs out of memory. Free up some memory and try again.
 
@@ -61,6 +66,15 @@ Follow the steps to enable a 1-node replication set, so we can use MongoDB oplog
 
 Now, the MongoDB container will be set up permanently and you can `mup deploy` from dev to deploy the
 docker container holding the WhichTeam App server.
+
+## bet-scraper container functionality
+
+By default, the bet-scraper container does nothing. Essentially it contains a number of python
+web scrapers and are intended to be run via cron. There is the default crontab in `bet-scraper/crontab`,
+which calls `docker exec` calls on each scraper's start script at various intervals. To install this,
+from the docker user run: `crontab bet-scraper/crontab`.
+
+Scripts, for manual running, can be found at `/bet_scraper/scripts/` within the running container.
 
 ## Upstream
 
